@@ -38,18 +38,22 @@ body {
 
 /* Suggestions */
 .suggestions-wrapper {
- overflow-x: auto;
- overflow-y: hidden;
- padding: 1.5rem 0;
- cursor: grab;
- margin: 0 auto;
+ overflow: hidden;
+ margin: 1.5rem auto;
  max-width: 1100px;
+ cursor: grab;
+ position: relative;
+ height: 160px;
 }
 .suggestions-wrapper:active { cursor: grabbing; }
 .suggestions {
  display: flex;
  gap: 1rem;
- min-width: max-content;
+ animation: scroll-suggestions 40s linear infinite;
+}
+@keyframes scroll-suggestions {
+ 0% { transform: translateX(0); }
+ 100% { transform: translateX(-50%); }
 }
 .suggestion-card {
  background: rgba(255,255,255,0.05);
@@ -162,7 +166,7 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  pointer-events: none;
  animation-name: fall;
  animation-timing-function: linear;
- opacity: 0.15; /* subtle */
+ opacity: 0.15; 
 }
 @keyframes fall {
  0% { transform: translateY(0) rotate(0deg); }
@@ -180,6 +184,22 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  <!-- Suggestions -->
  <div class="suggestions-wrapper">
  <div class="suggestions" id="suggestions">
+ <div class="suggestion-card">
+ <h3>Review 8 songs</h3>
+ <p>Earn <span class="earn">$32</span></p>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
+ </div>
+ <div class="suggestion-card">
+ <h3>Review 30 songs</h3>
+ <p>Earn <span class="earn">$120</span></p>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
+ </div>
+ <div class="suggestion-card">
+ <h3>Review 50 songs</h3>
+ <p>Earn <span class="earn">$200</span></p>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
+ </div>
+ <!-- duplicate for infinite scroll -->
  <div class="suggestion-card">
  <h3>Review 8 songs</h3>
  <p>Earn <span class="earn">$32</span></p>
@@ -295,17 +315,6 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  addLiveComments();
  setInterval(addLiveComments,4000);
 
- // Auto-scroll suggestions slowly
- const suggestions = document.getElementById('suggestions');
- let scrollPos = 0;
- function autoScroll() {
- scrollPos += 0.3;
- if(scrollPos >= suggestions.scrollWidth / 2) scrollPos = 0;
- suggestions.scrollTo({ left: scrollPos, behavior: 'smooth' });
- requestAnimationFrame(autoScroll);
- }
- autoScroll();
-
  // Enable manual drag for suggestions
  let isDown = false, startX, scrollLeft;
  const wrapper = document.querySelector('.suggestions-wrapper');
@@ -327,12 +336,12 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  note.textContent='♫';
  note.style.left=Math.random()*window.innerWidth+'px';
  note.style.fontSize=(Math.random()*20+12)+'px';
- note.style.animationDuration=(Math.random()*12+12)+'s'; // slower
- note.style.opacity=(Math.random()*0.2+0.1); // subtle
+ note.style.animationDuration=(Math.random()*12+12)+'s';
+ note.style.opacity=(Math.random()*0.2+0.1);
  document.body.appendChild(note);
- setTimeout(()=>note.remove(),25000); // longer life
+ setTimeout(()=>note.remove(),25000);
  }
- setInterval(createNote,1500); // fewer notes
+ setInterval(createNote,2500); 
 </script>
 </body>
 </html>
