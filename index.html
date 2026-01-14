@@ -11,9 +11,10 @@
 body {
  font-family: 'Manrope', sans-serif;
  margin: 0;
- background: linear-gradient(135deg, #1e1e1e 0%, #2c2c2c 100%);
+ background: linear-gradient(135deg, #1f1f1f, #2a2f28); /* starting mixed grey-green */
  color: #e5e7eb;
  overflow-x: hidden;
+ transition: background 0.5s ease;
 }
 
 /* Floating music notes */
@@ -54,17 +55,20 @@ body {
  font-size: 1.2rem;
 }
 
-/* Suggestions Packs - horizontal small cards */
+/* Suggestions Packs - horizontal scrolling */
+.suggestions-wrapper {
+ overflow: hidden;
+ padding: 2rem 0;
+}
 .suggestions {
  display: flex;
- justify-content: center;
  gap: 1rem;
- margin-bottom: 3rem;
- padding: 0 1rem;
- overflow-x: auto;
- scrollbar-width: none; /* Firefox */
+ animation: scrollSuggestions 25s linear infinite;
 }
-.suggestions::-webkit-scrollbar { display: none; } /* Chrome, Safari */
+@keyframes scrollSuggestions {
+ 0% { transform: translateX(0); }
+ 100% { transform: translateX(-50%); }
+}
 .suggestion-card {
  background: rgba(255,255,255,0.05);
  backdrop-filter: blur(10px);
@@ -72,8 +76,8 @@ body {
  padding: 1rem 1.25rem;
  min-width: 160px;
  text-align: center;
- transition: transform 0.3s ease, box-shadow 0.3s ease;
  flex-shrink: 0;
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .suggestion-card:hover {
  transform: translateY(-5px) scale(1.05);
@@ -210,21 +214,23 @@ footer {
 </section>
 
 <!-- Suggestions - horizontal small cards -->
-<section class="suggestions">
+<section class="suggestions-wrapper">
+ <div class="suggestions">
  <div class="suggestion-card">
  <h3>Suggestion 1</h3>
  <p>Review 5 songs → <span class="earn">$36</span></p>
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta">Apply →</a>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
  </div>
  <div class="suggestion-card">
  <h3>Suggestion 2</h3>
  <p>Review 10 songs → <span class="earn">$72</span></p>
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta">Apply →</a>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
  </div>
  <div class="suggestion-card">
  <h3>Suggestion 3</h3>
  <p>Review 20 songs → <span class="earn">$144</span></p>
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta">Apply →</a>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
+ </div>
  </div>
 </section>
 
@@ -246,7 +252,7 @@ footer {
 
 <!-- CTA -->
 <section class="text-center py-16 px-6">
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta">Apply Now →</a>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply Now →</a>
 </section>
 
 <!-- Comments -->
@@ -285,7 +291,7 @@ footer {
 
 <!-- Sticky CTA -->
 <div class="sticky-apply">
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta">Apply →</a>
+ <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
 </div>
 
 <script>
@@ -295,6 +301,19 @@ footer {
  const ans = item.querySelector('.faq-answer');
  ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
  });
+ });
+
+ // Background color change on scroll
+ window.addEventListener('scroll', () => {
+ let scrollY = window.scrollY;
+ let totalHeight = document.body.scrollHeight - window.innerHeight;
+ let progress = scrollY / totalHeight;
+ let startColor = [31,31,31]; // #1f1f1f
+ let endColor = [42,47,40]; // #2a2f28
+ let r = Math.round(startColor[0] + (endColor[0]-startColor[0])*progress);
+ let g = Math.round(startColor[1] + (endColor[1]-startColor[1])*progress);
+ let b = Math.round(startColor[2] + (endColor[2]-startColor[2])*progress);
+ document.body.style.background = `rgb(${r},${g},${b})`;
  });
 </script>
 
