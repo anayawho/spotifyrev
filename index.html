@@ -11,9 +11,21 @@
 <style>
 body {
  font-family: 'Manrope', sans-serif;
- background: linear-gradient(to bottom,#121212,#1a1a1a);
+ margin: 0;
+ background: #0d0d0d;
  color: #e5e7eb;
  overflow-x: hidden;
+}
+
+/* Floating notes */
+.note {
+ position: absolute;
+ opacity: 0.12;
+ animation: drift linear infinite;
+}
+@keyframes drift {
+ from { transform: translateY(-10vh) rotate(0deg); }
+ to { transform: translateY(220vh) rotate(360deg); }
 }
 
 /* Hero */
@@ -24,32 +36,33 @@ body {
  justify-content: center;
  text-align: center;
  padding: 4rem 1rem;
- background: linear-gradient(135deg,#1db954,#1ed760 90%);
- color: white;
  position: relative;
  overflow: hidden;
 }
-
 .hero h1 {
  font-size: 3rem;
  font-weight: 800;
+ color: #fff;
  margin-bottom: 1rem;
 }
-
 .hero p {
  font-size: 1.25rem;
+ color: #cbd5e1;
  margin-bottom: 1rem;
+}
+.hero .highlight {
+ color: #1ed760;
+ font-weight: 700;
 }
 
 /* Steps */
 .steps-section {
  max-width: 1200px;
- margin: -6rem auto 0 auto; /* move up */
+ margin: -4rem auto 0 auto;
  display: grid;
  grid-template-columns: 1fr;
  gap: 2rem;
  padding: 0 1rem;
- z-index: 1;
  position: relative;
 }
 @media(min-width:768px){
@@ -57,7 +70,6 @@ body {
  grid-template-columns: repeat(3,1fr);
  }
 }
-
 .step-card {
  background: rgba(255,255,255,0.06);
  backdrop-filter: blur(12px);
@@ -76,8 +88,8 @@ body {
 .step-number {
  width: 50px;
  height: 50px;
- background: #1db954;
- color: white;
+ background: #1ed760;
+ color: #0d0d0d;
  font-weight: 700;
  font-size: 1.2rem;
  border-radius: 50%;
@@ -90,7 +102,7 @@ body {
 /* CTA */
 .cta {
  background: linear-gradient(90deg,#1ed760,#1db954);
- color: #052e16;
+ color: #0d0d0d;
  font-weight: 700;
  border-radius: 9999px;
  box-shadow: 0 0 40px rgba(30,215,96,0.6);
@@ -113,10 +125,11 @@ body {
 
 /* Comments */
 .comment-card {
- background: rgba(30,215,96,0.1);
+ background: rgba(30,215,96,0.08);
  border-radius: 1rem;
  padding: 1rem 1.5rem;
  margin-bottom: 1rem;
+ color: #e5e7eb;
 }
 
 /* FAQ */
@@ -135,18 +148,24 @@ footer {
  text-align: center;
  padding: 3rem 1rem;
  font-size: 0.875rem;
- color: #a3a3a3;
+ color: #9ca3af;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Floating notes -->
+<div class="note text-5xl" style="left:5%; animation-duration:28s;">♪</div>
+<div class="note text-6xl" style="left:20%; animation-duration:32s;">♩</div>
+<div class="note text-5xl" style="left:50%; animation-duration:26s;">♫</div>
+<div class="note text-6xl" style="left:75%; animation-duration:30s;">♬</div>
+
 <!-- Hero -->
 <section class="hero">
  <h1>Spotify Song Reviewer Program</h1>
  <p>Apply to receive Spotify tracks and get paid for honest reviews.</p>
- <p class="font-bold text-lg md:text-xl mt-2">Complete the steps below to be approved:</p>
+ <p class="highlight font-bold text-lg md:text-xl mt-2">Complete the steps below to be approved:</p>
 </section>
 
 <!-- Steps -->
@@ -178,6 +197,7 @@ footer {
  <div class="comment-card"><strong>Emily S.</strong> — Just received my PR tracks, it’s amazing!</div>
  <div class="comment-card"><strong>Sophia L.</strong> — Love discovering new songs early.</div>
  <div class="comment-card"><strong>Olivia M.</strong> — Fun and easy way to earn money!</div>
+ <div class="comment-card"><strong>Hannah K.</strong> — Reviewing songs has never been this rewarding!</div>
 </section>
 
 <!-- FAQ -->
