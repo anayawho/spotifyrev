@@ -10,9 +10,10 @@
 body {
  font-family: 'Manrope', sans-serif;
  margin: 0;
- background: #2a2f28;
+ background: linear-gradient(to bottom, #2c2f28, #1f2a25);
  color: #e5e7eb;
  overflow-x: hidden;
+ position: relative;
 }
 
 /* Hero */
@@ -34,12 +35,6 @@ body {
  font-size: 1.25rem;
  color: #cbd5e1;
 }
-.hero .highlight {
- color: #1ed760;
- font-weight: 700;
- font-size: 1.2rem;
- margin-top: 0.5rem;
-}
 
 /* Suggestions */
 .suggestions-wrapper {
@@ -50,16 +45,12 @@ body {
  margin: 0 auto;
  max-width: 1100px;
 }
+.suggestions-wrapper:active { cursor: grabbing; }
 .suggestions {
  display: flex;
  gap: 1rem;
- animation: scrollSuggestions 30s linear infinite;
+ min-width: max-content;
 }
-@keyframes scrollSuggestions {
- 0% { transform: translateX(0); }
- 100% { transform: translateX(-50%); }
-}
-.suggestions-wrapper:active { cursor: grabbing; }
 .suggestion-card {
  background: rgba(255,255,255,0.05);
  backdrop-filter: blur(10px);
@@ -149,8 +140,6 @@ body {
  border-radius:1rem; padding:1rem 1.5rem;
  color:#e5e7eb;
  display:flex; justify-content:space-between;
- animation: none;
- transition: transform 0.5s ease, opacity 0.5s ease;
 }
 .comment-name { font-weight:700; color:#1ed760; margin-right:0.5rem; }
 
@@ -162,9 +151,24 @@ body {
 /* Footer */
 footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af; }
 
+/* Falling notes */
+.note {
+ position: fixed;
+ top: -10px;
+ font-size: 1em;
+ color: #1ed760;
+ z-index: 9999;
+ user-select: none;
+ pointer-events: none;
+ animation-name: fall;
+ animation-timing-function: linear;
+}
+@keyframes fall {
+ 0% { transform: translateY(0) rotate(0deg); }
+ 100% { transform: translateY(100vh) rotate(360deg); }
+}
 </style>
 </head>
-
 <body>
 
 <!-- Hero -->
@@ -174,20 +178,20 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
 
  <!-- Suggestions -->
  <div class="suggestions-wrapper">
- <div class="suggestions">
+ <div class="suggestions" id="suggestions">
  <div class="suggestion-card">
- <h3>Review 5 songs</h3>
- <p>Earn <span class="earn">$36</span></p>
+ <h3>Review 8 songs</h3>
+ <p>Earn <span class="earn">$32</span></p>
  <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
  </div>
  <div class="suggestion-card">
- <h3>Review 10 songs</h3>
- <p>Earn <span class="earn">$72</span></p>
+ <h3>Review 30 songs</h3>
+ <p>Earn <span class="earn">$120</span></p>
  <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
  </div>
  <div class="suggestion-card">
- <h3>Review 20 songs</h3>
- <p>Earn <span class="earn">$144</span></p>
+ <h3>Review 50 songs</h3>
+ <p>Earn <span class="earn">$200</span></p>
  <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
  </div>
  </div>
@@ -291,7 +295,45 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  }
  addLiveComments();
  setInterval(addLiveComments,4000);
-</script>
 
+ // Auto-scroll suggestions slowly
+ const suggestions = document.getElementById('suggestions');
+ let scrollPos = 0;
+ function autoScroll() {
+ scrollPos += 0.3; // speed
+ if(scrollPos >= suggestions.scrollWidth / 2) scrollPos = 0;
+ suggestions.scrollTo({ left: scrollPos, behavior: 'smooth' });
+ requestAnimationFrame(autoScroll);
+ }
+ autoScroll();
+
+ // Enable manual drag
+ let isDown = false, startX, scrollLeft;
+ const wrapper = document.querySelector('.suggestions-wrapper');
+ wrapper.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - wrapper.offsetLeft; scrollLeft = wrapper.scrollLeft; });
+ wrapper.addEventListener('mouseleave', () => isDown = false);
+ wrapper.addEventListener('mouseup', () => isDown = false);
+ wrapper.addEventListener('mousemove', e => {
+ if(!isDown) return;
+ e.preventDefault();
+ const x = e.pageX - wrapper.offsetLeft;
+ const walk = (x - startX) * 2;
+ wrapper.scrollLeft = scrollLeft - walk;
+ });
+
+ // Falling music notes
+ function createNote(){
+ const note = document.createElement('div');
+ note.className='note';
+ note.textContent='♫';
+ note.style.left=Math.random()*window.innerWidth+'px';
+ note.style.fontSize=(Math.random()*20+10)+'px';
+ note.style.animationDuration=(Math.random()*5+5)+'s';
+ note.style.opacity=Math.random();
+ document.body.appendChild(note);
+ setTimeout(()=>note.remove(),12000);
+ }
+ setInterval(createNote,300);
+</script>
 </body>
 </html>
