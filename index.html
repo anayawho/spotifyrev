@@ -38,31 +38,20 @@ body {
 
 /* Suggestions */
 .suggestions-wrapper {
- overflow: hidden;
- margin: 1.5rem auto;
- max-width: 1100px;
- cursor: grab;
- position: relative;
- height: 160px;
-}
-.suggestions-wrapper:active { cursor: grabbing; }
-.suggestions {
  display: flex;
- gap: 1rem;
- animation: scroll-suggestions 40s linear infinite;
-}
-@keyframes scroll-suggestions {
- 0% { transform: translateX(0); }
- 100% { transform: translateX(-50%); }
+ justify-content: center;
+ gap: 1.5rem;
+ margin: 1.5rem auto;
+ max-width: 600px;
+ cursor: default;
 }
 .suggestion-card {
  background: rgba(255,255,255,0.05);
  backdrop-filter: blur(10px);
  border-radius: 1.5rem;
  padding: 1rem 1.25rem;
- min-width: 160px;
+ min-width: 180px;
  text-align: center;
- flex-shrink: 0;
  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .suggestion-card:hover {
@@ -183,38 +172,15 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
 
  <!-- Suggestions -->
  <div class="suggestions-wrapper">
- <div class="suggestions" id="suggestions">
  <div class="suggestion-card">
  <h3>Review 8 songs</h3>
  <p>Earn <span class="earn">$32</span></p>
  <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
  </div>
  <div class="suggestion-card">
- <h3>Review 30 songs</h3>
- <p>Earn <span class="earn">$120</span></p>
+ <h3>Review 18 songs</h3>
+ <p>Earn <span class="earn">$72</span></p>
  <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
- </div>
- <div class="suggestion-card">
- <h3>Review 50 songs</h3>
- <p>Earn <span class="earn">$200</span></p>
- <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
- </div>
- <!-- duplicate for infinite scroll -->
- <div class="suggestion-card">
- <h3>Review 8 songs</h3>
- <p>Earn <span class="earn">$32</span></p>
- <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
- </div>
- <div class="suggestion-card">
- <h3>Review 30 songs</h3>
- <p>Earn <span class="earn">$120</span></p>
- <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
- </div>
- <div class="suggestion-card">
- <h3>Review 50 songs</h3>
- <p>Earn <span class="earn">$200</span></p>
- <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply →</a>
- </div>
  </div>
  </div>
 
@@ -315,20 +281,6 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  addLiveComments();
  setInterval(addLiveComments,4000);
 
- // Enable manual drag for suggestions
- let isDown = false, startX, scrollLeft;
- const wrapper = document.querySelector('.suggestions-wrapper');
- wrapper.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - wrapper.offsetLeft; scrollLeft = wrapper.scrollLeft; });
- wrapper.addEventListener('mouseleave', () => isDown = false);
- wrapper.addEventListener('mouseup', () => isDown = false);
- wrapper.addEventListener('mousemove', e => {
- if(!isDown) return;
- e.preventDefault();
- const x = e.pageX - wrapper.offsetLeft;
- const walk = (x - startX) * 2;
- wrapper.scrollLeft = scrollLeft - walk;
- });
-
  // Falling music notes - fewer, slower, subtle
  function createNote(){
  const note = document.createElement('div');
@@ -341,7 +293,7 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  document.body.appendChild(note);
  setTimeout(()=>note.remove(),25000);
  }
- setInterval(createNote,2500); 
+ setInterval(createNote,4000); 
 </script>
 </body>
 </html>
