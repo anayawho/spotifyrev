@@ -162,7 +162,7 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  pointer-events: none;
  animation-name: fall;
  animation-timing-function: linear;
- opacity: 0.2; /* subtle opacity */
+ opacity: 0.15; /* subtle */
 }
 @keyframes fall {
  0% { transform: translateY(0) rotate(0deg); }
@@ -320,19 +320,19 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  wrapper.scrollLeft = scrollLeft - walk;
  });
 
- // Falling music notes - slow and subtle
+ // Falling music notes - fewer, slower, subtle
  function createNote(){
  const note = document.createElement('div');
  note.className='note';
  note.textContent='♫';
  note.style.left=Math.random()*window.innerWidth+'px';
- note.style.fontSize=(Math.random()*20+10)+'px';
- note.style.animationDuration=(Math.random()*10+10)+'s'; // slower
- note.style.opacity=(Math.random()*0.3+0.1); // low opacity
+ note.style.fontSize=(Math.random()*20+12)+'px';
+ note.style.animationDuration=(Math.random()*12+12)+'s'; // slower
+ note.style.opacity=(Math.random()*0.2+0.1); // subtle
  document.body.appendChild(note);
- setTimeout(()=>note.remove(),20000);
+ setTimeout(()=>note.remove(),25000); // longer life
  }
- setInterval(createNote,400);
+ setInterval(createNote,1500); // fewer notes
 </script>
 </body>
 </html>
