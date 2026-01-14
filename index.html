@@ -11,36 +11,96 @@
 <style>
 body {
  font-family: 'Manrope', sans-serif;
- background: radial-gradient(circle at top, #1db95422, #0b0b0b 60%);
+ background: linear-gradient(to bottom,#121212,#1a1a1a);
  color: #e5e7eb;
  overflow-x: hidden;
 }
 
-/* Glow text */
-.glow {
- text-shadow: 0 0 20px rgba(29,185,84,0.6);
+/* Hero */
+.hero {
+ min-height: 70vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ text-align: center;
+ padding: 4rem 1rem;
+ background: linear-gradient(135deg,#1db954,#1ed760 90%);
+ color: white;
+ position: relative;
+ overflow: hidden;
 }
 
-/* Glass cards */
-.glass {
+.hero h1 {
+ font-size: 3rem;
+ font-weight: 800;
+ margin-bottom: 1rem;
+}
+
+.hero p {
+ font-size: 1.25rem;
+ margin-bottom: 1rem;
+}
+
+/* Steps */
+.steps-section {
+ max-width: 1200px;
+ margin: -6rem auto 0 auto; /* move up */
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 2rem;
+ padding: 0 1rem;
+ z-index: 1;
+ position: relative;
+}
+@media(min-width:768px){
+ .steps-section {
+ grid-template-columns: repeat(3,1fr);
+ }
+}
+
+.step-card {
  background: rgba(255,255,255,0.06);
- backdrop-filter: blur(16px);
- border: 1px solid rgba(255,255,255,0.1);
+ backdrop-filter: blur(12px);
+ padding: 2rem;
  border-radius: 1.75rem;
+ box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.step-card:hover {
+ transform: translateY(-5px) scale(1.02);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+.step-number {
+ width: 50px;
+ height: 50px;
+ background: #1db954;
+ color: white;
+ font-weight: 700;
+ font-size: 1.2rem;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-bottom: 1rem;
 }
 
 /* CTA */
 .cta {
- background: linear-gradient(90deg,#1db954,#22ff88);
+ background: linear-gradient(90deg,#1ed760,#1db954);
  color: #052e16;
- font-weight: 800;
+ font-weight: 700;
  border-radius: 9999px;
- box-shadow: 0 0 40px rgba(34,255,136,0.6);
+ box-shadow: 0 0 40px rgba(30,215,96,0.6);
  transition: all .3s ease;
+ padding: 1rem 2.5rem;
+ font-size: 1.25rem;
 }
 .cta:hover {
  transform: scale(1.05);
- box-shadow: 0 0 70px rgba(34,255,136,0.9);
+ box-shadow: 0 0 70px rgba(30,215,96,0.9);
 }
 
 /* Sticky apply */
@@ -51,117 +111,116 @@ body {
  z-index: 50;
 }
 
-/* Floating notes */
-.note {
- position: absolute;
- opacity: .15;
- animation: drift linear infinite;
+/* Comments */
+.comment-card {
+ background: rgba(30,215,96,0.1);
+ border-radius: 1rem;
+ padding: 1rem 1.5rem;
+ margin-bottom: 1rem;
 }
-@keyframes drift {
- from { transform: translateY(-10vh); }
- to { transform: translateY(220vh); }
+
+/* FAQ */
+.faq-item {
+ background: rgba(255,255,255,0.06);
+ border-radius: 1.25rem;
+ padding: 1.5rem;
+ cursor: pointer;
+ transition: transform 0.3s ease;
+}
+.faq-item:hover { transform: translateY(-3px); }
+.faq-answer { display: none; margin-top: 0.5rem; color: #1ed760; }
+
+/* Footer */
+footer {
+ text-align: center;
+ padding: 3rem 1rem;
+ font-size: 0.875rem;
+ color: #a3a3a3;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Floating music notes -->
-<div class="note text-5xl" style="left:5%; animation-duration:22s;">♪</div>
-<div class="note text-6xl" style="left:25%; animation-duration:30s;">♫</div>
-<div class="note text-4xl" style="left:55%; animation-duration:26s;">♩</div>
-<div class="note text-6xl" style="left:80%; animation-duration:34s;">♬</div>
+<!-- Hero -->
+<section class="hero">
+ <h1>Spotify Song Reviewer Program</h1>
+ <p>Apply to receive Spotify tracks and get paid for honest reviews.</p>
+ <p class="font-bold text-lg md:text-xl mt-2">Complete the steps below to be approved:</p>
+</section>
 
-<!-- HERO -->
-<section class="min-h-screen flex flex-col items-center justify-center text-center px-6">
- <h1 class="text-5xl md:text-7xl font-extrabold glow mb-6">
- Spotify Song Reviewer Program
- </h1>
- <p class="max-w-2xl text-lg md:text-xl text-gray-300 mb-4">
- Get paid to listen to new music and share your honest opinion on upcoming tracks.
- </p>
- <p class="font-bold text-xl text-green-400 mb-10">
- Complete the steps below to be approved:
- </p>
+<!-- Steps -->
+<section class="steps-section">
+ <div class="step-card">
+ <div class="step-number">1</div>
+ <p>Answer few short questions</p>
+ </div>
+ <div class="step-card">
+ <div class="step-number">2</div>
+ <p>Enter email & basic info (name, address, etc.)</p>
+ </div>
+ <div class="step-card">
+ <div class="step-number">3</div>
+ <p>Complete recommended deals (such as installing games, apps)</p>
+ </div>
+</section>
 
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta px-10 py-5 text-xl inline-flex items-center gap-3">
- Apply to Review Songs →
+<!-- CTA -->
+<section class="text-center py-16 px-6">
+ <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta inline-flex items-center gap-2">
+ Apply Now →
  </a>
 </section>
 
-<!-- STEPS -->
-<section class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-3 gap-10">
-
- <div class="glass p-8 hover:scale-[1.03] transition">
- <div class="text-green-400 text-5xl font-extrabold mb-4">01</div>
- <h3 class="text-xl font-semibold mb-2">Answer few short questions</h3>
- <p class="text-gray-400">Tell us about your music taste and listening habits.</p>
- </div>
-
- <div class="glass p-8 hover:scale-[1.03] transition">
- <div class="text-green-400 text-5xl font-extrabold mb-4">02</div>
- <h3 class="text-xl font-semibold mb-2">Enter email & basic info</h3>
- <p class="text-gray-400">Provide your name, address, and contact details.</p>
- </div>
-
- <div class="glass p-8 hover:scale-[1.03] transition">
- <div class="text-green-400 text-5xl font-extrabold mb-4">03</div>
- <h3 class="text-xl font-semibold mb-2">Complete recommended deals</h3>
- <p class="text-gray-400">Such as installing apps or games to finalize approval.</p>
- </div>
-
-</section>
-
-<!-- SOCIAL PROOF -->
-<section class="max-w-4xl mx-auto px-6 py-20">
+<!-- Comments -->
+<section class="max-w-4xl mx-auto px-6 py-16">
  <h2 class="text-3xl font-bold text-center mb-10">Recent Reviewer Feedback</h2>
-
- <div class="space-y-6">
- <div class="glass p-6"> <strong>Emily S.</strong> — Reviewed 5 songs and earned my first payout already!</div>
- <div class="glass p-6"> <strong>Hannah M.</strong> — Discovered amazing artists before they went viral.</div>
- <div class="glass p-6"> <strong>Olivia K.</strong> — Easy process and fun way to make extra income.</div>
- </div>
+ <div class="comment-card"><strong>Emily S.</strong> — Just received my PR tracks, it’s amazing!</div>
+ <div class="comment-card"><strong>Sophia L.</strong> — Love discovering new songs early.</div>
+ <div class="comment-card"><strong>Olivia M.</strong> — Fun and easy way to earn money!</div>
 </section>
 
 <!-- FAQ -->
-<section class="max-w-5xl mx-auto px-6 py-24">
- <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-
- <div class="grid md:grid-cols-2 gap-8">
- <div class="glass p-6">
- <h4 class="font-semibold mb-2">Do I need music experience?</h4>
- <p class="text-gray-400">No experience needed. If you love listening to music, you qualify.</p>
+<section class="max-w-5xl mx-auto px-6 py-16">
+ <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+ <div class="grid md:grid-cols-2 gap-6">
+ <div class="faq-item">
+ <h4 class="font-semibold mb-2">Do I need experience?</h4>
+ <div class="faq-answer">No experience required — passion for music is enough!</div>
  </div>
-
- <div class="glass p-6">
- <h4 class="font-semibold mb-2">Is it free to apply?</h4>
- <p class="text-gray-400">Yes, joining the reviewer program is completely free.</p>
+ <div class="faq-item">
+ <h4 class="font-semibold mb-2">Is it free to join?</h4>
+ <div class="faq-answer">Yes! Joining the reviewer program is completely free.</div>
  </div>
-
- <div class="glass p-6">
- <h4 class="font-semibold mb-2">How fast is approval?</h4>
- <p class="text-gray-400">Most applicants are approved instantly after completing all steps.</p>
- </div>
-
- <div class="glass p-6">
- <h4 class="font-semibold mb-2">How do I get paid?</h4>
- <p class="text-gray-400">Payments are issued after approved reviews are completed.</p>
+ <div class="faq-item">
+ <h4 class="font-semibold mb-2">Instant approval?</h4>
+ <div class="faq-answer">Complete all steps and get approved instantly.</div>
  </div>
  </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="text-center py-12 text-sm text-gray-400">
- <p class="mb-2">SSL Secured • Encrypted • Verified Platform</p>
+<!-- Footer -->
+<footer>
+ <p>SSL Secured • Encrypted • Verified Platform</p>
  <p>© 2026 Spotify Song Reviewer Program</p>
 </footer>
 
-<!-- STICKY APPLY -->
+<!-- Sticky CTA -->
 <div class="sticky-apply">
- <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta px-6 py-4 inline-flex items-center gap-2">
+ <a href="https://trkfy.org/aff_c?offer_id=3345&aff_id=64120" class="cta inline-flex items-center gap-2">
  Apply →
  </a>
 </div>
+
+<script>
+ // FAQ toggle
+ document.querySelectorAll('.faq-item').forEach(item => {
+ item.addEventListener('click', () => {
+ const ans = item.querySelector('.faq-answer');
+ ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+ });
+ });
+</script>
 
 </body>
 </html>
