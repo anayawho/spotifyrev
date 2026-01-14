@@ -136,23 +136,23 @@ body {
  z-index:50;
 }
 
-/* Live comments */
+/* Live comments vertical */
 .live-feed {
- max-width: 800px; margin:0 auto;
- padding:2rem 1rem; display:flex; flex-direction:column; gap:1rem;
+ max-width: 800px; 
+ margin:0 auto;
+ padding:2rem 1rem; 
 }
+.live-feed h2 { font-size:1.5rem; font-weight:700; margin-bottom:1rem; color:#fff; text-align:center; }
+.comment-container { display:flex; flex-direction:column; gap:0.75rem; max-height:400px; overflow:hidden; position:relative; }
 .comment-card {
  background: rgba(30,215,96,0.08);
  border-radius:1rem; padding:1rem 1.5rem;
  color:#e5e7eb;
- white-space: nowrap;
- overflow:hidden;
- animation: scrollLive 15s linear infinite;
+ display:flex; justify-content:space-between;
+ animation: none;
+ transition: transform 0.5s ease, opacity 0.5s ease;
 }
-@keyframes scrollLive {
- 0%{ transform: translateX(100%); }
- 100%{ transform: translateX(-100%); }
-}
+.comment-name { font-weight:700; color:#1ed760; margin-right:0.5rem; }
 
 /* FAQ */
 .faq-item { background: rgba(255,255,255,0.06); border-radius:1.25rem; padding:1.5rem; cursor:pointer; transition: transform 0.3s ease; margin-bottom:1rem; }
@@ -218,13 +218,10 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  <a href="https://glctrk.org/aff_c?offer_id=1970&aff_id=64120" class="cta">Apply Now →</a>
 </section>
 
-<!-- Live Review Feed -->
+<!-- Live Comments -->
 <section class="live-feed">
- <div class="comment-card">Emily S.: Just received my PR tracks, amazing!</div>
- <div class="comment-card">Sophia L.: Getting paid to review songs is so fun!</div>
- <div class="comment-card">Olivia M.: What an easy way to earn money!</div>
- <div class="comment-card">Hannah K.: Reviewing songs has never been this rewarding!</div>
- <div class="comment-card">Chloe R.: I love discovering new songs early!</div>
+ <h2>Live Comments from Reviewers</h2>
+ <div class="comment-container" id="commentContainer"></div>
 </section>
 
 <!-- FAQ -->
@@ -265,6 +262,35 @@ footer { text-align:center; padding:3rem 1rem; font-size:0.875rem; color:#9ca3af
  ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
  });
  });
+
+ // Live comment feed
+ const reviewers = ["Emily S.","Sophia L.","Olivia M.","Hannah K.","Chloe R.","Mia P.","Isabella T.","Lily A."];
+ const comments = [
+ "Just received my PR tracks, amazing!",
+ "Getting paid to review songs is so fun!",
+ "What an easy way to earn money!",
+ "Reviewing songs has never been this rewarding!",
+ "I love discovering new songs early!",
+ "This program is awesome!",
+ "I can't believe how simple it is!",
+ "Super fun and quick reviews!"
+ ];
+
+ const container = document.getElementById('commentContainer');
+
+ function addLiveComments() {
+ container.innerHTML = '';
+ for(let i=0;i<5;i++){
+ const name = reviewers[Math.floor(Math.random()*reviewers.length)];
+ const text = comments[Math.floor(Math.random()*comments.length)];
+ const div = document.createElement('div');
+ div.className = 'comment-card';
+ div.innerHTML = `<span class="comment-name">${name}:</span> ${text}`;
+ container.appendChild(div);
+ }
+ }
+ addLiveComments();
+ setInterval(addLiveComments,4000);
 </script>
 
 </body>
